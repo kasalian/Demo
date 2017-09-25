@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       #map {
+        height: 600px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var Darazo = {lat:10.996303, lng:10.408651};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: Darazo
+        });
+
+        var arr = [
+        ['Bauchi Emir Palace',10.310259, 9.846634],
+        ['Misau Emir Palace',11.316643, 10.471179],
+        ['Azare, Emir Palace', 11.675941, 10.192755],
+        ['Emir Palace, Dass',9.998935, 9.516723],
+        ['Liman Katagum Emir Palace',10.011485, 9.776278],
+        ['Ningi Emirs Palace, Jengre-Ningi, Bauchi', 11.076461, 9.564054],
+        ['Palace, Dogon Jeji A, Jamaare, Bauchi',11.743228, 9.957451],
+        ['Giade Palace, Bauchi', 11.497524, 10.292793],
+        ['Darazo District Head Palace, Darazo, Bauchi',10.998976, 10.413497],
+        // ['',],
+        // ['',],
+        // ['',],
+        // ['',],
+        ];
+
+    var infowindow = new google.maps.InfoWindow({
+      // content: arr[i][0]
+    });
+
+    var marker, i;
+
+    for (i = 0; i < arr.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(arr[i][1], arr[i][2]),
+        map: map,
+        
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(arr[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key= AIzaSyDpjh0UX4Due8N5mL3bRmneWwwsSdRFc0k&callback=initMap">
+    </script>
+  </body>
+</html>
